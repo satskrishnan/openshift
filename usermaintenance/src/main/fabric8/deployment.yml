@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: ${project.artifactId}
+spec:
+  template:
+    spec:
+      containers:
+        - livenessProbe:
+            failureThreshold: 2
+            httpGet:
+              path: "/actuator/health"
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 60
+            periodSeconds: 3
+            successThreashold: 1
+            timeoutSeconds: 1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: "/actuator/health"
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreashold: 1
+            timeoutSeconds: 1
+          env:
+          - name: POSTGRESQL_USER
+            valueFrom:
+               secretKeyRef:
+                 name: database-bind
+                 key: POSTGRESQL_USER
+          - name: POSTGRESQL_PASSWORD
+            valueFrom:
+               secretKeyRef:
+                 name: database-bind
+                 key: POSTGRESQL_PASSWORD
+          - name: POSTGRESQL_DATABASE
+            valueFrom:
+               secretKeyRef:
+                 name: database-bind
+                 key: POSTGRESQL_DATABASE
+          - name: JAVA_OPTIONS
+            value: "-Dspring.profiles.active=openshift -DskipTests"

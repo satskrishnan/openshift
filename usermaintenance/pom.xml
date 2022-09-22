@@ -16,7 +16,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<postgresql.version>9.4.1212</postgresql.version>
+		<postgresql.version>42.3.7</postgresql.version>
 		<spring-boot.version>2.1.6.RELEASE</spring-boot.version>
 		<spring-boot.bom.version>2.1.6.SP3-redhat-00001</spring-boot.bom.version>
 		<fabric8-maven-plugin.version>4.1.0</fabric8-maven-plugin.version>
